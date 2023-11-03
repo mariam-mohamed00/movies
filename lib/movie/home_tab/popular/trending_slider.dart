@@ -6,18 +6,13 @@ import '../../../my_theme.dart';
 import '../homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class PopularSlider extends StatefulWidget {
-  PopularSlider(
-      {required this.moviesList,
-      required this.snapshot,
-      required this.similarList,
-      required this.movie_id,
-      required this.recommendedList});
+  PopularSlider({
+    required this.moviesList,
+    required this.snapshot,
+  });
 
   final AsyncSnapshot snapshot;
   var moviesList;
-  var recommendedList;
-  var similarList;
-  var movie_id;
 
   @override
   State<PopularSlider> createState() => _PopularSliderState();
@@ -83,12 +78,15 @@ class _PopularSliderState extends State<PopularSlider> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailsScreen(
-                          // movie_id: widget.movie_id,
-                          index: itemIndex,
-                          moviesList: widget.snapshot.data?.results ?? [],
-                        ),
-                      ),
+                          builder: (context) => DetailsScreen(
+                                // movie_id: widget.movie_id,
+                                index: itemIndex,
+                                moviesList: widget.snapshot.data?.results ?? [],
+                              ),
+                          settings: RouteSettings(
+                              arguments: DetailsScreenArgs(
+                            movie_id: widget.moviesList[itemIndex].id,
+                          ))),
                     );
                   },
                   child: Image.network(

@@ -13,7 +13,7 @@ class ApiConstants {
   static const String browseCategories = '/3/discover/movie';
 
   // https://api.themoviedb.org/3/movie/{movie_id}
-  static const String deatailsApi = '/3/movie/';
+  // static const String deatailsApi = '/3/movie/';
 
   static const apiKey = 'b2a61005339883119cb9765bd932c27e';
   static const imagePath = 'https://image.tmdb.org/t/p/w500';

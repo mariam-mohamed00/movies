@@ -9,12 +9,10 @@ class NewReleasesPart extends StatefulWidget {
   NewReleasesPart({
     required this.releasesList,
     required this.snapshot,
-    // required this.movie_id
   });
 
   var releasesList;
   AsyncSnapshot snapshot;
-  int movie_id = 500;
 
   @override
   State<NewReleasesPart> createState() => _NewReleasesPartState();
@@ -65,8 +63,10 @@ class _NewReleasesPartState extends State<NewReleasesPart> {
                                         widget.snapshot.data?.results ?? [],
                                   ),
                                   settings: RouteSettings(
-                                      arguments: DetailsScreenArgs(
-                                          movie_id: widget.movie_id)),
+                                    arguments: DetailsScreenArgs(
+                                      movie_id: widget.releasesList[index].id,
+                                    ),
+                                  ),
                                 ),
                               );
                             },

@@ -9,14 +9,10 @@ class RecommendedPart extends StatefulWidget {
   RecommendedPart(
       {required this.recommendedList,
       required this.snapshot,
-      required this.similarList,
-      required this.movie_id,
       required this.titleName});
 
   var recommendedList;
-  var similarList;
   AsyncSnapshot snapshot;
-  var movie_id;
   String titleName;
 
   @override
@@ -81,12 +77,16 @@ class _RecommendedPartState extends State<RecommendedPart> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailsScreen(
-                                        // movie_id: widget.movie_id,
-                                        index: index,
-                                        moviesList:
-                                            widget.snapshot.data?.results ?? [],
-                                      ),
-                                    ),
+                                              index: index,
+                                              moviesList: widget
+                                                      .snapshot.data?.results ??
+                                                  [],
+                                            ),
+                                        settings: RouteSettings(
+                                            arguments: DetailsScreenArgs(
+                                          movie_id:
+                                              widget.recommendedList[index].id,
+                                        ))),
                                   );
                                 },
                                 child: ClipRRect(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/movie/search/searchWidgets/movie_item.dart';
+
 import '../../api/api_manager.dart';
 import '../../model/MovieSearch.dart';
 import '../../my_theme.dart';
@@ -138,16 +139,11 @@ class MoviesSearchDelegate extends SearchDelegate {
           );
         }
         var movieList = snapshot.data?.results ?? [];
-        var similarList = snapshot.data?.results ?? [];
-        var recommendedList = snapshot.data?.results ?? [];
         return ListView.builder(
           itemBuilder: (context, index) {
             return Column(
               children: [
                 MovieItem(
-                  recommendedList: recommendedList,
-                  movie_id: snapshot.data?.results ?? [],
-                  similarList: similarList,
                   moviesList: snapshot.data?.results ?? [],
                   itemIndex: index,
                   snapshot: snapshot,

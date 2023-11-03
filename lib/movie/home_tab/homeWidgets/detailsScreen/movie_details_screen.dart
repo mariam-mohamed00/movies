@@ -3,6 +3,8 @@ import 'package:movies/api/api_constants.dart';
 import 'package:movies/movie/home_tab/homeWidgets/detailsScreen/similarPart.dart';
 import 'package:movies/my_theme.dart';
 
+import 'detailsMoviePart.dart';
+
 class DetailsScreen extends StatelessWidget {
   static const String routeName = 'details movie screen';
 
@@ -34,27 +36,27 @@ class DetailsScreen extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: Image.network(
-                      '${ApiConstants.imagePath}${moviesList[index].posterPath}',
-                      filterQuality: FilterQuality.high,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      moviesList[index].title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: MyTheme.whiteColor),
-                    ),
-                  ),
+              SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  '${ApiConstants.imagePath}${moviesList[index].posterPath}',
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.fill,
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  moviesList[index].title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .copyWith(color: MyTheme.whiteColor),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, top: 12, bottom: 16),
                 child: Text(
                   moviesList[index].releaseDate,
                   style: Theme.of(context)
@@ -63,12 +65,10 @@ class DetailsScreen extends StatelessWidget {
                       .copyWith(color: MyTheme.whiteColor),
                 ),
               ),
-              // DetailsMoviePart(index: index, moviesList: moviesList),
-
+              DetailsMoviePart(index: index, moviesList: moviesList),
               SizedBox(
                 height: 20,
               ),
-
               SimilarMoviesPart(
                 movie_id: args.movie_id,
               ),
@@ -81,5 +81,7 @@ class DetailsScreen extends StatelessWidget {
 class DetailsScreenArgs {
   int movie_id;
 
-  DetailsScreenArgs({required this.movie_id});
+  DetailsScreenArgs({
+    required this.movie_id,
+  });
 }

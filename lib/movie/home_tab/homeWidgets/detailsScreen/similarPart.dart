@@ -9,15 +9,15 @@ import 'movie_details_screen.dart';
 
 class SimilarMoviesPart extends StatefulWidget {
   int movie_id;
-
-  SimilarMoviesPart({required this.movie_id});
+  SimilarMoviesPart({
+    required this.movie_id,
+  });
 
   @override
   State<SimilarMoviesPart> createState() => _SimilarMoviesState();
 }
 
 class _SimilarMoviesState extends State<SimilarMoviesPart> {
-  // bool click = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _SimilarMoviesState extends State<SimilarMoviesPart> {
                 ElevatedButton(
                     onPressed: () {
                       print(snapshot.error);
-                      ApiManager.getPopular();
+                      ApiManager.getSimilar(widget.movie_id);
                       setState(() {});
                     },
                     child: const Text(
@@ -63,7 +63,7 @@ class _SimilarMoviesState extends State<SimilarMoviesPart> {
                 ElevatedButton(
                     onPressed: () {
                       print(snapshot.error);
-                      ApiManager.getPopular();
+                      ApiManager.getSimilar(widget.movie_id);
                       setState(() {});
                     },
                     child: Text('Try again'))
@@ -104,7 +104,6 @@ class _SimilarMoviesState extends State<SimilarMoviesPart> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
-// color: Colors.white,
                                 color: MyTheme.greyColor,
                                 boxShadow: [
                                   BoxShadow(
@@ -113,7 +112,6 @@ class _SimilarMoviesState extends State<SimilarMoviesPart> {
                                     blurRadius: 6.0,
                                   ),
                                 ]),
-// color: MyTheme.greyColor,
                             child: AspectRatio(
                               aspectRatio: 2 / 4,
                               child: Column(
@@ -125,13 +123,20 @@ class _SimilarMoviesState extends State<SimilarMoviesPart> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => DetailsScreen(
-                                              // movie_id: widget.movie_id,
-                                              index: index,
-                                              moviesList:
-                                                  snapshot.data?.results ?? [],
-                                            ),
-                                          ),
+                                              builder: (context) =>
+                                                  DetailsScreen(
+                                                    index: index,
+                                                    moviesList: snapshot
+                                                            .data?.results ??
+                                                        [],
+                                                  ),
+                                              settings: RouteSettings(
+                                                  arguments: DetailsScreenArgs(
+                                                movie_id:
+                                                    similarMoviesList[index]
+                                                            .id ??
+                                                        0,
+                                              ))),
                                         );
                                       },
                                       child: ClipRRect(

@@ -74,24 +74,26 @@ class ApiManager {
         '${ApiConstants.similarApi}$movieId${ApiConstants.similarApi2}',
         {"api_key": "b2a61005339883119cb9765bd932c27e"});
     try {
-      print(movieId);
+      // print(movieId);
       var response = await http.get(url);
       var bodyString = response.body;
       var json = jsonDecode(bodyString);
-      print(json);
+      // print(json);
       return SimilarMovies.fromJson(json);
     } catch (e) {
       throw e;
     }
   }
 
-  // static Future<SimilarMovies> getDetailsMovie(String movieId) async {
-  //   Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.deatailsApi+movieId,
+  // static Future<SimilarMovies> getDetailsMovie(int movieId) async {
+  //   Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.deatailsApi}$movieId',
   //       {"api_key": "b2a61005339883119cb9765bd932c27e"});
   //   try {
+  //     // print(movieId);
   //     var response = await http.get(url);
   //     var bodyString = response.body;
   //     var json = jsonDecode(bodyString);
+  //     print(json);
   //     return SimilarMovies.fromJson(json);
   //   } catch (e) {
   //     throw e;
