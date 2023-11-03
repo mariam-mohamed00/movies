@@ -1,34 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:movies/model/BrowseCategories.dart';
-
-import '../../api/api_constants.dart';
-import '../../my_theme.dart';
 
 class Category {
-  int id;
   String title;
-
-  // String imageUrl;
   Color color;
+  int id;
 
-  Category({
-    required this.id,
-    required this.title,
-    // required this.imageUrl,
-    required this.color,
-  });
+  Category({required this.title, required this.color, required this.id});
 
   static List<Category> getCategories() {
-    // var categoriesList= results.posterPath;
-
     return [
       Category(
         id: 28,
         title: 'Action',
-        // imageUrl:  '${ApiConstants.imagePath}${moviesList[itemIndex].posterPath}',
-
         color: Colors.cyan,
       ),
       Category(

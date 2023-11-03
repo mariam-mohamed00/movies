@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
+
 import '../../../api/api_constants.dart';
 import '../../../my_theme.dart';
-import '../../home_tab/homeWidgets/movie_details_screen.dart';
+import '../../home_tab/homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class MovieItem extends StatefulWidget {
   var moviesList;
-  var similarList;
   int itemIndex;
-  var movie_id;
-  var recommendedList;
   final AsyncSnapshot snapshot;
 
-  MovieItem(
-      {required this.moviesList,
-      required this.itemIndex,
-      required this.snapshot,
-      required this.similarList,
-      required this.movie_id,
-      required this.recommendedList});
+  MovieItem({
+    required this.moviesList,
+    required this.itemIndex,
+    required this.snapshot,
+  });
 
   @override
   State<MovieItem> createState() => _MovieItemState();
@@ -35,15 +31,14 @@ class _MovieItemState extends State<MovieItem> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailsScreen(
-                      recommendedList: widget.recommendedList,
-                      movie_id: widget.movie_id,
-                      similarList: widget.similarList,
-                      snapshot: widget.snapshot,
-                      index: widget.itemIndex,
-                      moviesList: widget.snapshot.data?.results ?? [],
-                    ),
-                  ));
+                      builder: (context) => DetailsScreen(
+                            index: widget.itemIndex,
+                            moviesList: widget.snapshot.data?.results ?? [],
+                          ),
+                      settings: RouteSettings(
+                          arguments: DetailsScreenArgs(
+                        movie_id: widget.moviesList[widget.itemIndex].id,
+                      ))));
             },
             child: Row(
               children: [

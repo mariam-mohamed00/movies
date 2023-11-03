@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:movies/movie/home_tab/homeWidgets/bookmark_icon.dart';
 import 'package:movies/my_theme.dart';
+
 import '../../../api/api_constants.dart';
-import '../homeWidgets/movie_details_screen.dart';
+import '../homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class RecommendedPart extends StatefulWidget {
   RecommendedPart(
       {required this.recommendedList,
       required this.snapshot,
-      required this.similarList,
-      required this.movie_id,
       required this.titleName});
 
   var recommendedList;
-  var similarList;
   AsyncSnapshot snapshot;
-  var movie_id;
   String titleName;
 
   @override
@@ -79,15 +77,16 @@ class _RecommendedPartState extends State<RecommendedPart> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailsScreen(
-                                        recommendedList: widget.recommendedList,
-                                        movie_id: widget.movie_id,
-                                        similarList: widget.similarList,
-                                        snapshot: widget.snapshot,
-                                        index: index,
-                                        moviesList:
-                                            widget.snapshot.data?.results ?? [],
-                                      ),
-                                    ),
+                                              index: index,
+                                              moviesList: widget
+                                                      .snapshot.data?.results ??
+                                                  [],
+                                            ),
+                                        settings: RouteSettings(
+                                            arguments: DetailsScreenArgs(
+                                          movie_id:
+                                              widget.recommendedList[index].id,
+                                        ))),
                                   );
                                 },
                                 child: ClipRRect(
@@ -98,37 +97,7 @@ class _RecommendedPartState extends State<RecommendedPart> {
                                   ),
                                 ),
                               ),
-                              click == false
-                                  ? InkWell(
-                                      onTap: () {
-                                        click = !click;
-                                        setState(() {});
-                                      },
-                                      child: Stack(children: [
-                                        Image.asset(
-                                          'assets/images/Icon awesome-bookmark-grey.png',
-                                        ),
-                                        Icon(
-                                          Icons.add,
-                                          color: MyTheme.whiteColor,
-                                        )
-                                      ]),
-                                    )
-                                  : InkWell(
-                                      onTap: () {
-                                        click = !click;
-                                        setState(() {});
-                                      },
-                                      child: Stack(children: [
-                                        Image.asset(
-                                          'assets/images/Icon awesome-bookmark.png',
-                                        ),
-                                        Icon(
-                                          Icons.check,
-                                          color: MyTheme.whiteColor,
-                                        )
-                                      ]),
-                                    )
+                              BookMarkIcon()
                             ]),
                             Row(
                               children: [
