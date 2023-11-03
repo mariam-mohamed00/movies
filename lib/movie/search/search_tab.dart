@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/my_theme.dart';
+
 import 'movies_search_delegate.dart';
 
 class SearchTab extends StatefulWidget {
@@ -63,3 +63,4 @@ class _SearchTabState extends State<SearchTab> {
     );
   }
 }
+

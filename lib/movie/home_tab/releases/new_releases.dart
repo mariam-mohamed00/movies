@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/api_constants.dart';
+import 'package:movies/movie/home_tab/homeWidgets/bookmark_icon.dart';
 import 'package:movies/my_theme.dart';
-import '../homeWidgets/movie_details_screen.dart';
+
+import '../homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class NewReleasesPart extends StatefulWidget {
-  NewReleasesPart(
-      {required this.newReleasesList,
-      required this.snapshot,
-      required this.similarList,
-      required this.movie_id,
-      required this.recommendedList});
+  NewReleasesPart({
+    required this.releasesList,
+    required this.snapshot,
+    // required this.movie_id
+  });
 
-  var newReleasesList;
-  var similarList;
+  var releasesList;
   AsyncSnapshot snapshot;
-  var movie_id;
-  var recommendedList;
+  int movie_id = 500;
 
   @override
   State<NewReleasesPart> createState() => _NewReleasesPartState();
 }
 
 class _NewReleasesPartState extends State<NewReleasesPart> {
-  bool click = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +44,7 @@ class _NewReleasesPartState extends State<NewReleasesPart> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: widget.newReleasesList.length,
+                itemCount: widget.releasesList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Column(children: [
@@ -57,61 +54,30 @@ class _NewReleasesPartState extends State<NewReleasesPart> {
                         aspectRatio: 4 / 5,
                         child: Padding(
                           padding: const EdgeInsets.all(18.0),
-                          child: Stack(children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailsScreen(
-                                      movie_id: widget.movie_id,
-                                      similarList: widget.similarList,
-                                      snapshot: widget.snapshot,
-                                      index: index,
-                                      moviesList:
-                                          widget.snapshot.data?.results ?? [],
-                                      recommendedList: widget.recommendedList,
-                                    ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailsScreen(
+                                    index: index,
+                                    moviesList:
+                                        widget.snapshot.data?.results ?? [],
                                   ),
-                                );
-                              },
-                              child: ClipRRect(
+                                  settings: RouteSettings(
+                                      arguments: DetailsScreenArgs(
+                                          movie_id: widget.movie_id)),
+                                ),
+                              );
+                            },
+                            child: Stack(children: [
+                              ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
-                                      "${ApiConstants.imagePath}${widget.newReleasesList[index].posterPath}")),
-                            ),
-                            click == false
-                                ? InkWell(
-                                    onTap: () {
-                                      click = !click;
-                                      setState(() {});
-                                    },
-                                    child: Stack(children: [
-                                      Image.asset(
-                                        'assets/images/Icon awesome-bookmark-grey.png',
-                                      ),
-                                      Icon(
-                                        Icons.add,
-                                        color: MyTheme.whiteColor,
-                                      )
-                                    ]),
-                                  )
-                                : InkWell(
-                                    onTap: () {
-                                      click = !click;
-                                      setState(() {});
-                                    },
-                                    child: Stack(children: [
-                                      Image.asset(
-                                        'assets/images/Icon awesome-bookmark.png',
-                                      ),
-                                      Icon(
-                                        Icons.check,
-                                        color: MyTheme.whiteColor,
-                                      )
-                                    ]),
-                                  )
-                          ]),
+                                      "${ApiConstants.imagePath}${widget.releasesList[index].posterPath}")),
+                              BookMarkIcon(),
+                            ]),
+                          ),
                         ),
                       ),
                     ),

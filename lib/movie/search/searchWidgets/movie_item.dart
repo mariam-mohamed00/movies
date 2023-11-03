@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../../../api/api_constants.dart';
 import '../../../my_theme.dart';
-import '../../home_tab/homeWidgets/movie_details_screen.dart';
+import '../../home_tab/homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class MovieItem extends StatefulWidget {
   var moviesList;
@@ -36,10 +37,7 @@ class _MovieItemState extends State<MovieItem> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailsScreen(
-                      recommendedList: widget.recommendedList,
-                      movie_id: widget.movie_id,
-                      similarList: widget.similarList,
-                      snapshot: widget.snapshot,
+                      // movie_id: widget.movie_id,
                       index: widget.itemIndex,
                       moviesList: widget.snapshot.data?.results ?? [],
                     ),

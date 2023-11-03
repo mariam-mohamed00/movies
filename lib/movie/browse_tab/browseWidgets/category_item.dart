@@ -1,40 +1,43 @@
 import 'package:flutter/material.dart';
-import '../../../api/api_constants.dart';
-import '../category.dart';
 
-class CategoryItem extends StatelessWidget {
-  // var sourcesList;
+class CategoryItem extends StatefulWidget {
+  var categoriesNameList;
   int index;
 
-  // Category category;
-  var category;
-
-  CategoryItem({required this.index, required this.category});
+  // var categoriesList;
+  CategoryItem({
+    required this.categoriesNameList,
+    required this.index,
+    // required this.categoriesList
+  });
 
   @override
-  Widget build(BuildContext context) {
-    // var categoriesList = snapshot.data?.results ?? [];
+  State<CategoryItem> createState() => _CategoryItemState();
+}
 
+class _CategoryItemState extends State<CategoryItem> {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: category.color,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          // Image.network('${ApiConstants.imagePath}${categoryList[index].posterPath}',),
+          // color: category.color,
+          borderRadius: BorderRadius.circular(8),
+          color: Color.fromRGBO(199, 199, 178, 1.0)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            // Image.network('${ApiConstants.imagePath}${popularList[widget.index].posterPath}'),
 
-          // Image.network('${ApiConstants.imagePath}${sourcesList[index].posterPath}'),
-
-          // Text('${category.id}'),
-          Text(
-            category.title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(fontWeight: FontWeight.w400),
-          )
-        ],
+            Text(
+              widget.categoriesNameList[widget.index].name ?? '',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontWeight: FontWeight.w400),
+            )
+          ],
+        ),
       ),
     );
   }

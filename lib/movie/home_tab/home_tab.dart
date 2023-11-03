@@ -132,15 +132,11 @@ class _HomeTabState extends State<HomeTab> {
                         ],
                       );
                     }
-                    var newReleasesList = snapshot.data?.results ?? [];
-
                     return Column(children: [
                       const SizedBox(height: 32),
                       NewReleasesPart(
-                        recommendedList: newReleasesList,
-                        movie_id: snapshot.data?.results ?? [],
-                        similarList: snapshot.data?.results ?? [],
-                        newReleasesList: snapshot.data?.results ?? [],
+                        // movie_id: ,
+                        releasesList: snapshot.data?.results ?? [],
                         snapshot: snapshot,
                       ),
                     ]);

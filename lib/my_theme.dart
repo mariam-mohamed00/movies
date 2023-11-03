@@ -10,26 +10,10 @@ class MyTheme {
 
   static ThemeData lightTheme = ThemeData(
       appBarTheme: AppBarTheme(
-        // toolbarHeight: 40,
         color: searchColor,
-        // shape: StadiumBorder(
-        //   side: BorderSide(
-        //     width: 4,
-        //     color: Colors.red
-        //   )
-        // )
         shape: StadiumBorder(
             side: BorderSide(width: 1, color: MyTheme.whiteColor)),
       ),
-
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(45),
-      //   side: BorderSide(
-      //     width: 1,
-      //     color: whiteColor
-      //   )
-      // )
-
       textTheme: TextTheme(
         titleLarge: TextStyle(
             fontSize: 22, fontWeight: FontWeight.bold, color: whiteColor),
@@ -41,16 +25,6 @@ class MyTheme {
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
         focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-        //
-        // enabledBorder: OutlineInputBorder(
-        //     borderRadius: BorderRadius.circular(20)
-        //   ),
-        //
-        //     focusedBorder: OutlineInputBorder(
-        //         borderRadius: BorderRadius.circular(20)
-        //     ),
-        //   filled: true,
-        //   fillColor: yellowColor
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: yellowColor,

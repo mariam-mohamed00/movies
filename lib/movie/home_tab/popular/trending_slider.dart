@@ -1,9 +1,9 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
 import '../../../api/api_constants.dart';
 import '../../../my_theme.dart';
-import '../homeWidgets/movie_details_screen.dart';
+import '../homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class PopularSlider extends StatefulWidget {
   PopularSlider(
@@ -39,7 +39,7 @@ class _PopularSliderState extends State<PopularSlider> {
           enlargeCenterPage: true,
           pageSnapping: true,
           autoPlayCurve: Curves.fastOutSlowIn,
-          autoPlayAnimationDuration: const Duration(microseconds: 1),
+          autoPlayAnimationDuration: const Duration(seconds: 1),
         ),
         itemBuilder: (context, itemIndex, pageViewIndex) {
           return GestureDetector(
@@ -84,10 +84,7 @@ class _PopularSliderState extends State<PopularSlider> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailsScreen(
-                          recommendedList: widget.recommendedList,
-                          movie_id: widget.movie_id,
-                          similarList: widget.similarList,
-                          snapshot: widget.snapshot,
+                          // movie_id: widget.movie_id,
                           index: itemIndex,
                           moviesList: widget.snapshot.data?.results ?? [],
                         ),

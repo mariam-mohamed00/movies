@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         SplashScreen.routeName: (context) => SplashScreen(),
+        // DetailsScreen.routeName: (context) => DetailsScreen(moviesList: null,),
         // NewsArticle.routeName: (context) => NewsArticle(news: News()),
       },
       theme: MyTheme.lightTheme,
