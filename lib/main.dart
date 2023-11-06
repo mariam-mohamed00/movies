@@ -1,18 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'movie/home_screen.dart';
 import 'movie/splash.dart';
 import 'my_theme.dart';
 
-// import 'package:news/category/category_fragment.dart';
-// import 'package:news/model/NewsResponse.dart';
-// import 'package:news/news/news_article.dart';
-// import 'package:news/providers/app_config_provider.dart';
-// import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'model/category.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseFirestore.instance.disableNetwork();
 
-void main() {
   runApp(MyApp());
   // runApp(
   // ChangeNotifierProvider(

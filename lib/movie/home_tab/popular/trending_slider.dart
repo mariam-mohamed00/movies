@@ -50,10 +50,18 @@ class _PopularSliderState extends State<PopularSlider> {
                           height: 300,
                           width: double.infinity,
                           child: Image.network(
-                            filterQuality: FilterQuality.high,
-                            fit: BoxFit.fill,
-                            '${ApiConstants.imagePath}${widget.moviesList[itemIndex].posterPath}',
-                          ),
+                              filterQuality: FilterQuality.high,
+                              fit: BoxFit.fill,
+                              '${ApiConstants.imagePath}${widget.moviesList[itemIndex].posterPath}',
+                              errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                                height: 100,
+                                child: Center(
+                                    child: Icon(
+                                  Icons.error,
+                                  color: MyTheme.whiteColor,
+                                )));
+                          }),
                         ),
                       ),
                     ),
@@ -90,11 +98,19 @@ class _PopularSliderState extends State<PopularSlider> {
                     );
                   },
                   child: Image.network(
-                    '${ApiConstants.imagePath}${widget.moviesList[itemIndex].backdropPath}',
-                    height: 180,
-                    width: 120,
-                    fit: BoxFit.fill,
-                  ),
+                      '${ApiConstants.imagePath}${widget.moviesList[itemIndex].backdropPath}',
+                      height: 180,
+                      width: 120,
+                      fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                        height: 100,
+                        child: Center(
+                            child: Icon(
+                          Icons.error,
+                          color: MyTheme.whiteColor,
+                        )));
+                  }),
                 ),
               ]),
               IconButton(

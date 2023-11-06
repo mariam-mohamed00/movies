@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies/movie/search/searchWidgets/movie_item.dart';
+import 'package:movies/movie/customWidgets/movie_item.dart';
 
 import '../../api/api_manager.dart';
-import '../../model/MovieSearch.dart';
+import '../../model/NewReleases.dart';
 import '../../my_theme.dart';
 
 class MoviesSearchDelegate extends SearchDelegate {
@@ -49,7 +49,7 @@ class MoviesSearchDelegate extends SearchDelegate {
         ),
       );
     }
-    return FutureBuilder<MovieSearch>(
+    return FutureBuilder<MoviesResponse>(
         future: ApiManager.searchMovie(query),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -101,7 +101,7 @@ class MoviesSearchDelegate extends SearchDelegate {
         ),
       );
     }
-    return FutureBuilder<MovieSearch>(
+    return FutureBuilder<MoviesResponse>(
       future: ApiManager.searchMovie(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -144,9 +144,11 @@ class MoviesSearchDelegate extends SearchDelegate {
             return Column(
               children: [
                 MovieItem(
+                  // categoryid: movieList[index].id!,
                   moviesList: snapshot.data?.results ?? [],
                   itemIndex: index,
-                  snapshot: snapshot,
+// BookMarkIcon.check = false,
+// check: false,
                 ),
               ],
             );
