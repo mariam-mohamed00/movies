@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/api_constants.dart';
-import 'package:movies/movie/home_tab/homeWidgets/bookmark_icon.dart';
+import 'package:movies/movie/customWidgets/bookmark_icon.dart';
 import 'package:movies/my_theme.dart';
 
 import '../homeWidgets/detailsScreen/movie_details_screen.dart';
@@ -13,6 +13,7 @@ class NewReleasesPart extends StatefulWidget {
 
   var releasesList;
   AsyncSnapshot snapshot;
+  bool check = false;
 
   @override
   State<NewReleasesPart> createState() => _NewReleasesPartState();
@@ -74,8 +75,18 @@ class _NewReleasesPartState extends State<NewReleasesPart> {
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
-                                      "${ApiConstants.imagePath}${widget.releasesList[index].posterPath}")),
-                              BookMarkIcon(),
+                                      "${ApiConstants.imagePath}${widget.releasesList[index].posterPath}",
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                    return Container(
+                                        height: 100,
+                                        child: Center(
+                                            child: Icon(
+                                          Icons.error,
+                                          color: MyTheme.whiteColor,
+                                        )));
+                                  })),
+                              BookMarkIcon(movie: widget.releasesList[index])
                             ]),
                           ),
                         ),

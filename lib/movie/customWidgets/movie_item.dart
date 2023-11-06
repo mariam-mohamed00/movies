@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movies/movie/customWidgets/bookmark_icon.dart';
 
-import '../../../api/api_constants.dart';
-import '../../../my_theme.dart';
-import '../../home_tab/homeWidgets/detailsScreen/movie_details_screen.dart';
+import '../../api/api_constants.dart';
+import '../../my_theme.dart';
+import '../home_tab/homeWidgets/detailsScreen/movie_details_screen.dart';
 
 class MovieItem extends StatefulWidget {
   var moviesList;
   int itemIndex;
-  final AsyncSnapshot snapshot;
 
   MovieItem({
     required this.moviesList,
     required this.itemIndex,
-    required this.snapshot,
   });
 
   @override
@@ -33,7 +32,7 @@ class _MovieItemState extends State<MovieItem> {
                   MaterialPageRoute(
                       builder: (context) => DetailsScreen(
                             index: widget.itemIndex,
-                            moviesList: widget.snapshot.data?.results ?? [],
+                            moviesList: widget.moviesList,
                           ),
                       settings: RouteSettings(
                           arguments: DetailsScreenArgs(
@@ -42,18 +41,31 @@ class _MovieItemState extends State<MovieItem> {
             },
             child: Row(
               children: [
-                SizedBox(
-                  height: 120,
-                  width: 160,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      filterQuality: FilterQuality.high,
-                      fit: BoxFit.fill,
-                      '${ApiConstants.imagePath}${widget.moviesList[widget.itemIndex].posterPath}',
+                Stack(children: [
+                  SizedBox(
+                    height: 120,
+                    width: 160,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                          filterQuality: FilterQuality.high,
+                          fit: BoxFit.fill,
+                          '${ApiConstants.imagePath}${widget.moviesList[widget.itemIndex].posterPath}',
+                          errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                            height: 100,
+                            child: Center(
+                                child: Icon(
+                              Icons.error,
+                              color: MyTheme.whiteColor,
+                            )));
+                      }),
                     ),
                   ),
-                ),
+                  BookMarkIcon(
+                    movie: widget.moviesList[widget.itemIndex],
+                  )
+                ]),
                 SizedBox(
                   width: 10,
                 ),
@@ -79,10 +91,6 @@ class _MovieItemState extends State<MovieItem> {
                       ),
                       SizedBox(
                         height: 15,
-                      ),
-                      Text(
-                        widget.moviesList[widget.itemIndex].originalTitle ?? '',
-                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),

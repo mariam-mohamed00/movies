@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/api_constants.dart';
-import 'package:movies/movie/home_tab/homeWidgets/detailsScreen/similarPart.dart';
+import 'package:movies/movie/customWidgets/similarPart.dart';
 import 'package:movies/my_theme.dart';
 
-import 'detailsMoviePart.dart';
+import '../../../customWidgets/detailsMoviePart.dart';
 
 class DetailsScreen extends StatelessWidget {
-  static const String routeName = 'details movie screen';
-
   DetailsScreen({
     required this.moviesList,
     required this.index,
@@ -40,10 +38,18 @@ class DetailsScreen extends StatelessWidget {
                 height: 300,
                 width: double.infinity,
                 child: Image.network(
-                  '${ApiConstants.imagePath}${moviesList[index].posterPath}',
-                  filterQuality: FilterQuality.high,
-                  fit: BoxFit.fill,
-                ),
+                    '${ApiConstants.imagePath}${moviesList[index].posterPath}',
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.fill,
+                    errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                      height: 100,
+                      child: Center(
+                          child: Icon(
+                        Icons.error,
+                        color: MyTheme.whiteColor,
+                      )));
+                }),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -70,6 +76,7 @@ class DetailsScreen extends StatelessWidget {
                 height: 20,
               ),
               SimilarMoviesPart(
+                list: moviesList,
                 movie_id: args.movie_id,
               ),
             ])),

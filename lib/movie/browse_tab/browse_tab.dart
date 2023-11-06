@@ -3,7 +3,8 @@ import 'package:movies/model/Categories.dart';
 
 import '../../api/api_manager.dart';
 import '../../my_theme.dart';
-import 'category_fragment.dart';
+import 'browseWidgets/category_item.dart';
+import 'category_datails.dart';
 
 class BrowseTab extends StatefulWidget {
   @override
@@ -13,21 +14,29 @@ class BrowseTab extends StatefulWidget {
 class _BrowseTabState extends State<BrowseTab> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Column(
-        children: [
-          Expanded(
-            child: FutureBuilder<Categories>(
-              future: ApiManager.getNameOfCategory(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: MyTheme.greyColor,
-                    ),
-                  );
-                } else if (snapshot.hasError) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              top: MediaQuery.of(context).size.width * 0.1),
+          child: Text(
+            'Browse Category',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        Expanded(
+          child: FutureBuilder<Categories>(
+            future: ApiManager.getNameOfCategory(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: MyTheme.greyColor,
+                  ),
+                );
+              } else if (snapshot.hasError) {
                   return Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.3,
@@ -52,22 +61,23 @@ class _BrowseTabState extends State<BrowseTab> {
                 }
 
                 /// response => ok-error
-                if (snapshot.data?.genres == null) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.4,
-                        top: MediaQuery.of(context).size.height * 0.4),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Eroor' ?? "",
-                          style: TextStyle(color: MyTheme.whiteColor),
-                        ),
-                        ElevatedButton(
+              if (snapshot.data?.genres == []) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.1,
+                      top: MediaQuery.of(context).size.height * 0.4),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Errorrr',
+                        style: TextStyle(color: MyTheme.whiteColor),
+                      ),
+                      ElevatedButton(
                           onPressed: () {
-                            ApiManager.getNameOfCategory();
-                            setState(() {});
-                          },
+                            print(snapshot.error);
+                          ApiManager.getNameOfCategory();
+                          setState(() {});
+                        },
                           child: Text('Try again'),
                         ),
                       ],
@@ -75,24 +85,41 @@ class _BrowseTabState extends State<BrowseTab> {
                   );
                 }
                 var categoriesList = snapshot.data?.genres ?? [];
-                return Padding(
-                    padding: const EdgeInsets.all(48.0),
-                    child: CategoryFragment(
-                      categoriesNameList: categoriesList,
-                    ));
-              },
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.04),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 18,
+                    crossAxisSpacing: 20,
+                  ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CategortDetails(
+                                      categoriesList: categoriesList,
+                                      index: index,
+                                    ),
+                                settings: RouteSettings(
+                                    arguments: CategortDetailsArgs(
+                                        categoryId:
+                                            categoriesList[index].id!))),
+                          );
+                        },
+                        child: CategoryItem(
+                            categoriesNameList: categoriesList, index: index));
+                  },
+                  itemCount: categoriesList.length,
+                ),
+              );
+            },
             ),
           )
         ],
-      ),
     );
   }
-
-//   Categories? selectedCategory;
-//   void onCategoryClick(Categories newSelectedCategory) {
-//     selectedCategory = newSelectedCategory;
-//
-//     setState(() {});
-//   }
-// }
 }

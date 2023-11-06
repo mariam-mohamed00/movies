@@ -21,6 +21,8 @@ genres : [
   {"id":37,"name":"Western"}]
  */
 
+
+
 class Categories {
   Categories({
     this.genres,

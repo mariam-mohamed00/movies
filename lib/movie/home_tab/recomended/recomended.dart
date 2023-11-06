@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/movie/home_tab/homeWidgets/bookmark_icon.dart';
+import 'package:movies/movie/customWidgets/bookmark_icon.dart';
 import 'package:movies/my_theme.dart';
 
 import '../../../api/api_constants.dart';
@@ -20,8 +20,6 @@ class RecommendedPart extends StatefulWidget {
 }
 
 class _RecommendedPartState extends State<RecommendedPart> {
-  bool click = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,7 +74,7 @@ class _RecommendedPartState extends State<RecommendedPart> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(
+                                        builder: (context) => DetailsScreen(
                                               index: index,
                                               moviesList: widget
                                                       .snapshot.data?.results ??
@@ -94,10 +92,21 @@ class _RecommendedPartState extends State<RecommendedPart> {
                                   child: Image.network(
                                     '${ApiConstants.imagePath}${widget.recommendedList[index].posterPath}',
                                     fit: BoxFit.fill,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                          height: 100,
+                                          child: Center(
+                                              child: Icon(
+                                            Icons.error,
+                                            color: MyTheme.whiteColor,
+                                          )));
+                                    },
                                   ),
                                 ),
                               ),
-                              BookMarkIcon()
+                              BookMarkIcon(
+                                movie: widget.recommendedList[index],
+                              )
                             ]),
                             Row(
                               children: [
@@ -109,7 +118,7 @@ class _RecommendedPartState extends State<RecommendedPart> {
                                   width: 8,
                                 ),
                                 Text(
-                                    '${widget.recommendedList[index].voteAverage}'),
+                                    '${widget.recommendedList[index].voteAverage}/10'),
                               ],
                             ),
                             SizedBox(

@@ -9,11 +9,11 @@ class MyTheme {
   static Color blackGrey = Color(0xff1D1E1D);
 
   static ThemeData lightTheme = ThemeData(
-      appBarTheme: AppBarTheme(
-        color: searchColor,
-        shape: StadiumBorder(
-            side: BorderSide(width: 1, color: MyTheme.whiteColor)),
-      ),
+      // appBarTheme: AppBarTheme(
+      //   color: searchColor,
+      //   shape: StadiumBorder(
+      //       side: BorderSide(width: 1, color: MyTheme.whiteColor)),
+      // ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
             fontSize: 22, fontWeight: FontWeight.bold, color: whiteColor),

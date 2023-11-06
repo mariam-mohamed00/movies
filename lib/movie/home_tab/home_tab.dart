@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/api_manager.dart';
 import 'package:movies/model/NewReleases.dart';
-import 'package:movies/model/PopularMoviesResponse.dart';
-import 'package:movies/model/RecomendedResponse.dart';
 import 'package:movies/movie/home_tab/popular/trending_slider.dart';
 import 'package:movies/movie/home_tab/recomended/recomended.dart';
 import 'package:movies/movie/home_tab/releases/new_releases.dart';
@@ -21,7 +19,7 @@ class _HomeTabState extends State<HomeTab> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              FutureBuilder<PopularMoviesResponse>(
+              FutureBuilder<MoviesResponse>(
                   future: ApiManager.getPopular(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,7 +78,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ]);
                   }),
-              FutureBuilder<NewReleases>(
+              FutureBuilder<MoviesResponse>(
                   future: ApiManager.getNewReleases(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -137,7 +135,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ]);
                   }),
-              FutureBuilder<RecommendedResponse>(
+              FutureBuilder<MoviesResponse>(
                   future: ApiManager.getRecommended(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
